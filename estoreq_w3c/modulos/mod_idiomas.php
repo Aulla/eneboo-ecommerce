@@ -30,19 +30,24 @@ class oficial_modIdiomas
 	
 		
 		$codigoMod = '';
-		$dlOrigen = funSEO::getDL();
+		
 		$ordenSQL = "select codidioma, nombre from idiomas where publico = true order by orden";
 	
 		$result = $__BD->db_query($ordenSQL);
 		
 		while($row = $__BD->db_fetch_array($result)) {
+			$codIdioma = $row["codidioma"]; 
 			
- 			$codIdioma = $row["codidioma"]; 
+	if ($__LIB->esTrue($_SESSION["opciones"]["deeplinking"])) {
+			
  			$codIdiomaDL = $codIdioma;
- 			if ($codIdiomaDL == "esp") $codIdiomaDL = '';
+ 			//if ($codIdiomaDL == "esp") $codIdiomaDL = '';
 			
 			// traducir deep link
+			$dlOrigen = funSEO::getDL();
 			$partesDL = explode("/", $dlOrigen);
+			if ($_SESSION["idioma"] == $partesDL[0]) 
+				$partesDL[0] ='';
 			if (count($partesDL) > 1) {
 				if ($partesDL[1] == "catalogo") {
 					if (isset($partesDL[2])) {
@@ -61,7 +66,10 @@ class oficial_modIdiomas
 					}
 				}
 			}
+		
 			$dl = implode("/", $partesDL);
+		}
+		
 			
 			$img = _DOCUMENT_ROOT.'idiomas/'.$codIdioma.'/images/flag.png';
 			$imgW = _WEB_ROOT.'idiomas/'.$codIdioma.'/images/flag.png';
@@ -72,38 +80,59 @@ class oficial_modIdiomas
 				$codigoLang = $row["nombre"];
 			
 			
-			// Reconstruir url
-			$path_parts = pathinfo($_SERVER["SCRIPT_FILENAME"]);
-			$nomPHP = $path_parts["basename"];
 			
-			$params = '?newlang='.$codIdioma;
-			if($CLEAN_GET) {
-				foreach ($CLEAN_GET as $key => $value) {
-					if ($key == 'newlang')
-						continue;
-					$params .= '&amp;'.$key.'='.$value;
-				}
-			}
-			$link = $nomPHP.$params;
-				
-			if ($codIdioma == 'esp') {
-				if (substr($dl, 0, 1) == '/')
+			if ($__LIB->esTrue($_SESSION["opciones"]["deeplinking"])) 
+				{
+				$params ='?';
+			
+
+			if ($codIdioma == $_SESSION["idioma"]) {
+				if (substr($dl, 0, 1) != '/')
 					$dl = substr($dl, 1);
+				
 				$link = _WEB_ROOT.$dl;
 			}
 			else
-			if ($dl && substr($dl, 0, 1) != '/') {
-				$dl = '/'.$dl;
-				$link = _WEB_ROOT.$codIdioma.$dl;
+			{
+			if (substr($dl, 0, 1) != '/')
+				$dl = '/'.$dl;	
+			$link = _WEB_ROOT.$codIdioma.$dl;
 			}
+				
+				}
+				else
+				{
+				// Reconstruir url
+				$path_parts = pathinfo($_SERVER["SCRIPT_FILENAME"]);
+				$nomPHP = $path_parts["basename"];
+				if ($nomPHP == "articulos.php") $nomPHP = 'catalogo/articulos.php';
+				if ($nomPHP == "articulo.php") $nomPHP = 'catalogo/articulo.php';
+				
+				$params = '?newlang='.$codIdioma;
+				
+				if($CLEAN_GET) {
+					foreach ($CLEAN_GET as $key => $value) {
+						if ($key == 'newlang')
+							continue;
+						$params .= '&amp;'.$key.'='.$value;
+									      }
+						}
+			 				
+			        $link = $nomPHP.$params;
+			        }
+	
 			
 			
-/*			if ($codIdioma == $_SESSION["idioma"])
-				$codigoMod .= '<b>'.$codigoLang.'</b>';*/
+	
+			
+			
+	
+		  if ($codIdioma == $_SESSION["idioma"])
+				$codigoMod .= '<b>'.$codigoLang.'</b>';
 			if ($codIdioma != $_SESSION["idioma"])
 				$codigoMod .= '<a href="'.$link.'">'.$codigoLang.'</a>';
 		
-			if ($codigoMod)
+			//if ($codigoMod)
 				$codigoMod .= '&nbsp;&nbsp;';
 		}
 		
