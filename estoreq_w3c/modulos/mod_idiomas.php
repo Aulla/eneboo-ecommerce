@@ -82,9 +82,7 @@ class oficial_modIdiomas
 			
 			
 			if ($__LIB->esTrue($_SESSION["opciones"]["deeplinking"])) 
-				{
-				$params ='?';
-			
+				{			
 
 			if ($codIdioma == $_SESSION["idioma"]) {
 				if (substr($dl, 0, 1) != '/')
@@ -107,6 +105,12 @@ class oficial_modIdiomas
 				$nomPHP = $path_parts["basename"];
 				if ($nomPHP == "articulos.php") $nomPHP = 'catalogo/articulos.php';
 				if ($nomPHP == "articulo.php") $nomPHP = 'catalogo/articulo.php';
+				if ($nomPHP == "login.php") $nomPHP = 'cuenta/login.php';
+				if ($nomPHP == "favoritos.php") $nomPHP = 'cuenta/favoritos.php';
+				if ($nomPHP == "crear_cuenta.php") $nomPHP = 'cuenta/crear_cuenta.php';
+				if ($nomPHP == "olvide_contra.php") $nomPHP = 'cuenta/olvide_contra.php';
+				if ($nomPHP == "contactar.php") $nomPHP = 'general/contactar.php';
+				if ($nomPHP == "cesta.php") $nomPHP = 'general/cesta.php';
 				
 				$params = '?newlang='.$codIdioma;
 				
