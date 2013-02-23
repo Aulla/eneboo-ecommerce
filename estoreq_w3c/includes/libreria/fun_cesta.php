@@ -72,7 +72,7 @@ class oficial_cesta
 		}
 	}
 
-	// Devuelve el importe total
+	/* Devuelve el importe total
 	function total($codPago = '', $codEnvio = '') 
 	{
 		global $__BD, $__LIB, $__CAT;
@@ -160,10 +160,10 @@ class oficial_cesta
 		}
 
 		return $total;
-	}
+	}*/
 	
 	// Devuelve el importe total
-	function total_old($codPago = '', $codEnvio = '') 
+	function total($codPago = '', $codEnvio = '') 
 	{
 		global $__BD, $__LIB, $__CAT;
 		
@@ -287,7 +287,7 @@ class oficial_cesta
 	}
 	
 	// Imprime la cesta
-	function imprime_cesta_old() 
+	function imprime_cesta() 
 	{
 		global $__BD, $__CAT, $__LIB;
 		
@@ -387,7 +387,7 @@ class oficial_cesta
 		return true;
 	}
 	
-	// Imprime la cesta
+	/* Imprime la cesta
 	function imprime_cesta() 
 	{
 		global $__BD, $__CAT, $__LIB;
@@ -526,9 +526,9 @@ class oficial_cesta
 		echo $codigo;
 
 		return true;
-	}
+	}*/
 	
-	// Imprime la cesta para el resumen o confirmacion de un pedido
+	/* Imprime la cesta para el resumen o confirmacion de un pedido
 	function imprime_cesta_pedido($codEnvio = false, $codPago = false) 
 	{
 		global $__BD, $__LIB, $__CAT;
@@ -740,10 +740,10 @@ class oficial_cesta
 		$codigo .= '</table>';
 
 		return $codigo;
-	}
+	}*/
 
 	// Imprime la cesta para el resumen o confirmacion de un pedido
-	function imprime_cesta_pedido_old($codEnvio = false, $codPago = false) 
+	function imprime_cesta_pedido($codEnvio = false, $codPago = false) 
 	{
 		global $__BD, $__LIB, $__CAT;
 		
