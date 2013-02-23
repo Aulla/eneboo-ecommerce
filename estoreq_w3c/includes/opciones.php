@@ -45,8 +45,8 @@ if (!isset($_SESSION["divisa"])) {
 // Idioma
 if (isset($CLEAN_GET["newlang"]))
 	$__LIB->cambiarIdioma($CLEAN_GET["newlang"]);
-else
-	$__LIB->cambiarIdioma('esp');
+//else
+	//$__LIB->cambiarIdioma('esp');
 
 if (!isset($_SESSION["idioma"]))
 	$_SESSION["idioma"] = $_SESSION["opciones"]["codidiomadefecto"];
